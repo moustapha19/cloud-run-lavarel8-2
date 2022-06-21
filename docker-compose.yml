@@ -1,0 +1,34 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.local
+      args:
+        - TZ=${TZ}
+    volumes:
+      - ./src:/var/www/src
+      - ./logs:/var/log/php
+      - ./docker/php.ini:/usr/local/etc/php/php.ini
+    working_dir: /var/www/src
+    ports:
+      - "8080:8080"
+
+  db:
+    image: mysql:8.0
+    volumes:
+      - db-store:/var/lib/mysql
+      - ./logs:/var/log/mysql
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_USER=${DB_USERNAME}
+      - TZ=${TZ}
+    ports:
+      - "3006:3306"
+
+# Persistence data
+volumes:
+  db-store:

@@ -1,0 +1,1 @@
+cp env/.env.prod src/.env
