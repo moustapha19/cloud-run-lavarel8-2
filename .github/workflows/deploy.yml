@@ -1,0 +1,47 @@
+name: cloud-run-laravel8-deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      # Setup gcloud CLI
+      - uses: google-github-actions/setup-gcloud@v0.5.0
+        with:
+          service_account_email: ${{ secrets.TEST_GCP_EMAIL }}
+          service_account_key: ${{ secrets.TEST_GCP_CREDENTIALS }}
+          export_default_credentials: true
+
+      # Decode and put .env file
+      # https://casualdevelopers.com/tech-tips/how-to-use-dotenv-with-base64-on-circleci/
+      - name: Decode .env file
+        run: |
+          echo ${{ secrets.TEST_ENV_FILE }} | base64 --decode > src/.env
+      # Configure Docker with Credentials
+      - name: Configure Docker
+        run: |
+          gcloud auth configure-docker
+      # Build the Docker image
+      - name: Build
+        run: |
+          gcloud config set project ${{ secrets.TEST_GCP_PROJECT }}
+          docker build -f docker/Dockerfile.prod -t asia.gcr.io/${{ secrets.TEST_GCP_PROJECT }}/${{ secrets.TEST_GCP_APPLICATION }} .
+      # Push the Docker image
+      - name: Push
+        run: |
+          docker push asia.gcr.io/${{ secrets.TEST_GCP_PROJECT }}/${{ secrets.TEST_GCP_APPLICATION }}
+      # Deploy the Docker image to the GKE cluster
+      - name: Deploy
+        run: |
+          gcloud run deploy ${{ secrets.TEST_GCP_APPLICATION }} \
+          --image asia.gcr.io/${{ secrets.TEST_GCP_PROJECT }}/${{ secrets.TEST_GCP_APPLICATION }} \
+          --region asia-east1 \
+          --platform=managed \
+          --add-cloudsql-instances ${{ secrets.TEST_SQL_CONNECTION_NAME }} \
+          --allow-unauthenticated
