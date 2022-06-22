@@ -28,5 +28,4 @@ php artisan db:seed --force
 echo 'SEED2'
 # Run Apache in "foreground" mode (the default mode that runs in Docker)
 apache2-foreground
-
 echo 'FIN ENTRYPOINT'
