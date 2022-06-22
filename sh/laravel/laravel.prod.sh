@@ -25,6 +25,5 @@ echo 'MIGRATE'
 php artisan db:seed
 
 echo 'SEED2'
-
 # Run Apache in "foreground" mode (the default mode that runs in Docker)
 apache2-foreground
