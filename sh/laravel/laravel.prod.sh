@@ -25,7 +25,7 @@ php artisan migrate --force
 echo 'MIGRATE'
 php artisan db:seed --force
 
-echo 'SEED2'
+echo 'SEED'
 # Run Apache in "foreground" mode (the default mode that runs in Docker)
 apache2-foreground
 echo 'FIN ENTRYPOINT'
