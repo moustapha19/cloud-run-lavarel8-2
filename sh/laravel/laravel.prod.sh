@@ -9,6 +9,8 @@ find ./bootstrap/cache -type d -exec sudo chmod 775 {} \;
 sudo chown -R www-data:www-data .env
 find .env -type d -exec chmod 775 {} \;
 
+echo 'CHMOD'
+
 # initialize laravel
 cd /var/www/src
 composer install
@@ -16,11 +18,13 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-
+echo 'VIEWCACHE'
 # Run Laravel migration (by force, since it would be a prod-environment)
 php artisan migrate --force
-
+echo 'MIGRATE'
 php artisan db:seed
+
+echo 'SEED'
 
 # Run Apache in "foreground" mode (the default mode that runs in Docker)
 apache2-foreground
