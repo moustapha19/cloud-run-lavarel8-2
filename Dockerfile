@@ -31,9 +31,10 @@ RUN find /var/www/src/storage -type f -exec chmod 664 {} \;
 RUN chown www-data:www-data /var/www/src/bootstrap/cache -R
 RUN find /var/www/src/bootstrap/cache -type d -exec chmod 775 {} \;
 
+RUN ls -l /var/www/src/storage/
 RUN ls -l /var/www/src/storage/logs/
-RUN chown 666 /var/www/src/storage/logs/laravel.log
-RUN ls -l /var/www/src/storage/logs/
+RUN chown 666 /var/www/src/storage/logs/
+RUN ls -l /var/www/src/storage/
 #RUN chown -R www-data:www-data /var/www/env
 #RUN /var/www/env -type d -exec chmod 775 {} \;
 
