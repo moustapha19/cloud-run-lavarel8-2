@@ -40,7 +40,7 @@ RUN ls /var/www/src/
 
 
 # Make the file executable, or use "chmod 777" instead of "chmod +x"
-RUN chmod +x /var/www/sh/laravel/laravel.prod.sh
+RUN chmod 777 /var/www/sh/laravel/laravel.prod.sh
 
 # This will run the shell file at the time when container is up-and-running successfully (and NOT at the BUILD time)
 ENTRYPOINT ["/var/www/sh/laravel/laravel.prod.sh"]
