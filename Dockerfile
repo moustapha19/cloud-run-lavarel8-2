@@ -30,8 +30,8 @@ RUN find /var/www/src/storage -type d -exec chmod 775 {} \;
 RUN find /var/www/src/storage -type f -exec chmod 664 {} \;
 RUN chown www-data:www-data /var/www/src/bootstrap/cache -R
 RUN find /var/www/src/bootstrap/cache -type d -exec chmod 775 {} \;
-RUN chown -R www-data:www-data .env
-RUN .env -type d -exec chmod 775 {} \;
+RUN chown -R www-data:www-data /var/www/env
+RUN /var/www/env -type d -exec chmod 775 {} \;
 
 
 # Make the file executable, or use "chmod 777" instead of "chmod +x"
