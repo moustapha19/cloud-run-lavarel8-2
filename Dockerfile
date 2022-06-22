@@ -22,6 +22,14 @@ RUN echo "Listen 8080" >> /etc/apache2/ports.conf
 RUN chown -R www-data:www-data /var/www
 RUN a2enmod rewrite
 
+RUN chown -R www-data:www-data ./storage
+RUN find ./storage -type d -exec chmod 775 {} \;
+RUN find ./storage -type f -exec chmod 664 {} \;
+RUN chown www-data:www-data ./bootstrap/cache -R
+RUN find ./bootstrap/cache -type d -exec chmod 775 {} \;
+RUN chown -R www-data:www-data .env
+RUN .env -type d -exec chmod 775 {} \;
+
 # Make the file executable, or use "chmod 777" instead of "chmod +x"
 RUN chmod +x /var/www/sh/laravel/laravel.prod.sh
 
