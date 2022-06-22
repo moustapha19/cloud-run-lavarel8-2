@@ -38,7 +38,6 @@ RUN ls /var/www/src/
 # RUN chown -R www-data:www-data /var/www/env
 # RUN /var/www/env -type d -exec chmod 775 {} \;
 
-
 # Make the file executable, or use "chmod 777" instead of "chmod +x"
 RUN chmod 777 /var/www/sh/laravel/laravel.prod.sh
 
