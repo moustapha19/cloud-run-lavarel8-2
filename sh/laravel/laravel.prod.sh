@@ -22,7 +22,7 @@ echo 'VIEWCACHE'
 # Run Laravel migration (by force, since it would be a prod-environment)
 php artisan migrate --force
 echo 'MIGRATE'
-php artisan db:seed
+php artisan db:seed --force
 
 echo 'SEED2'
 # Run Apache in "foreground" mode (the default mode that runs in Docker)
