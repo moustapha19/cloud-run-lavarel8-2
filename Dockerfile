@@ -42,5 +42,5 @@ RUN ls /var/www/src/
 RUN chmod 777 /var/www/sh/laravel/laravel.prod.sh
 
 # This will run the shell file at the time when container is up-and-running successfully (and NOT at the BUILD time)
-# ENTRYPOINT ["/var/www/sh/laravel/laravel.prod.sh"]
-ENTRYPOINT ["php ","artisan","db:seed"]
+ENTRYPOINT ["/var/www/sh/laravel/laravel.prod.sh"]
+# ENTRYPOINT ["php","artisan","db:seed"]
