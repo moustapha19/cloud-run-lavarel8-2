@@ -17,6 +17,7 @@ composer install
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
+php artisan key:generate
 
 echo 'VIEWCACHE'
 # Run Laravel migration (by force, since it would be a prod-environment)
