@@ -23,11 +23,12 @@ RUN chown -R www-data:www-data /var/www
 RUN a2enmod rewrite
 
 RUN ls /var/www/
+RUN ls /var/www/src/
 RUN chown -R www-data:www-data ./storage
-RUN find /var/www/storage -type d -exec chmod 775 {} \;
-RUN find /var/www/storage/storage -type f -exec chmod 664 {} \;
+RUN find /var/www/src/storage -type d -exec chmod 775 {} \;
+RUN find /var/www/src/storage -type f -exec chmod 664 {} \;
 RUN chown www-data:www-data ./bootstrap/cache -R
-RUN find/var/www/storage/bootstrap/cache -type d -exec chmod 775 {} \;
+RUN find/var/www/src/storage/bootstrap/cache -type d -exec chmod 775 {} \;
 RUN chown -R www-data:www-data .env
 RUN .env -type d -exec chmod 775 {} \;
 
