@@ -22,6 +22,7 @@ RUN echo "Listen 8080" >> /etc/apache2/ports.conf
 RUN chown -R www-data:www-data /var/www
 RUN a2enmod rewrite
 
+
 RUN chown -R www-data:www-data ./storage
 RUN find ./storage -type d -exec chmod 775 {} \;
 RUN find ./storage -type f -exec chmod 664 {} \;
